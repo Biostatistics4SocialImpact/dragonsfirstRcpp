@@ -5,19 +5,25 @@
 
 using namespace Rcpp;
 
-// rcpp_hello_world
-List rcpp_hello_world();
-RcppExport SEXP _dragonsfirstRcpp_rcpp_hello_world() {
+// GibbsSampler
+List GibbsSampler(NumericMatrix X, NumericMatrix Sigma, const int iter_max, const int warm_up, const bool verbose, const int seed);
+RcppExport SEXP _dragonsfirstRcpp_GibbsSampler(SEXP XSEXP, SEXP SigmaSEXP, SEXP iter_maxSEXP, SEXP warm_upSEXP, SEXP verboseSEXP, SEXP seedSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(rcpp_hello_world());
+    Rcpp::traits::input_parameter< NumericMatrix >::type X(XSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type Sigma(SigmaSEXP);
+    Rcpp::traits::input_parameter< const int >::type iter_max(iter_maxSEXP);
+    Rcpp::traits::input_parameter< const int >::type warm_up(warm_upSEXP);
+    Rcpp::traits::input_parameter< const bool >::type verbose(verboseSEXP);
+    Rcpp::traits::input_parameter< const int >::type seed(seedSEXP);
+    rcpp_result_gen = Rcpp::wrap(GibbsSampler(X, Sigma, iter_max, warm_up, verbose, seed));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_dragonsfirstRcpp_rcpp_hello_world", (DL_FUNC) &_dragonsfirstRcpp_rcpp_hello_world, 0},
+    {"_dragonsfirstRcpp_GibbsSampler", (DL_FUNC) &_dragonsfirstRcpp_GibbsSampler, 6},
     {NULL, NULL, 0}
 };
 
